@@ -1,5 +1,5 @@
 import axios from 'axios';
-export async function getPhotos(q, page, limit) {
+export async function getPhotos(q, page) {
   const API_KEY = '43212506-95870309335e8ebf3ea9c8656';
   const baseUrl = 'https://pixabay.com';
   const endPoint = '/api/';
@@ -9,11 +9,11 @@ export async function getPhotos(q, page, limit) {
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: true,
-    per_page: limit,
-    page,
+    per_page: 15,
+    page: page,
   });
 
   const response = await axios.get(`${baseUrl}${endPoint}?${parameters}`);
-  console.log(response.data.hits);
+
   return response;
 }
