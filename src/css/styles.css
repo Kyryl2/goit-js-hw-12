@@ -213,7 +213,7 @@ input {
   padding: 8px 16px;
 }
 
-button {
+.btn-search {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -237,4 +237,20 @@ button {
 .foto {
   overflow: hidden;
   height: 152px;
+}
+.load-more-btn {
+  display: block;
+  border-radius: 8px;
+  border: none;
+  padding: 8px 16px;
+  width: 125px;
+  height: 40px;
+  background: #4e75ff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #fff;
+  margin: 0 auto;
 }
