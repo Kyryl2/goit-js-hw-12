@@ -15,7 +15,7 @@ let page = 1;
 const limit = 15;
 const search = input.value.trim();
 const quantity = await getPhotos(); // Чи вірно це?
-const totalPages = Math.ceil(quantity.totalHits / limit); // Чи вірно це?
+const totalPages = Math.ceil(quantity.data.totalHits / limit); // Чи вірно це?
 btn.classList.add('is-hidden');
 
 btn.addEventListener('click', morePosts);
