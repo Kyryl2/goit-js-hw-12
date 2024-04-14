@@ -1,20 +1,19 @@
-export function getPhotos(q) {
+import axios from 'axios';
+export async function getPhotos(q, page, limit) {
+  const API_KEY = '43212506-95870309335e8ebf3ea9c8656';
+  const baseUrl = 'https://pixabay.com';
+  const endPoint = '/api/';
   const parameters = new URLSearchParams({
-    key: '43212506-95870309335e8ebf3ea9c8656',
+    key: API_KEY,
     q,
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: true,
+    per_page: limit,
+    page,
   });
 
-  return fetch(`https://pixabay.com/api/?${parameters}`, {
-    header: {
-      'Access-Control-Allow-Origin': 'https://pixabay.com',
-    },
-  }).then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
-  });
+  const response = await axios.get(`${baseUrl}${endPoint}?${parameters}`);
+  console.log(response.data.hits);
+  return response;
 }
