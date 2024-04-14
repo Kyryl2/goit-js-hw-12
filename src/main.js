@@ -35,6 +35,8 @@ async function morePosts() {
     page += 1;
     btn.classList.add('is-hidden');
     loader.classList.remove('is-hidden');
+    const search = input.value.trim(); // Чому якщо прибрати змінну search з функції і залишити в глобальному, то з другого кліка вже не знаходить значення інпута, а бачить порожній інпут???
+
     const morePhotos = await getPhotos(search, page, limit);
     list.insertAdjacentHTML(
       'beforeend',
