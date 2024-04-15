@@ -13,8 +13,8 @@ const btn = document.querySelector('.load-more-btn');
 let page = 1;
 
 const limit = 15;
-const search = input.value.trim();
-// const quantity = await getPhotos(); // Чи вірно це?
+let search = 0;
+
 // const totalPages = Math.ceil(quantity.data.totalHits / limit); // Чи вірно це?
 const totalPages = Math.ceil(1000 / limit);
 btn.classList.add('is-hidden');
@@ -23,25 +23,22 @@ btn.addEventListener('click', morePosts);
 form.addEventListener('submit', onClickBtn);
 
 async function morePosts() {
-  if (page > totalPages) {
-    btn.classList.add('is-hidden');
-    return iziToast.error({
-      position: 'topRight',
-      message: "We're sorry, but you've reached the end of search results.",
-    });
-  }
-
   try {
     page += 1;
     btn.classList.add('is-hidden');
     loader.classList.remove('is-hidden');
-    const search = input.value.trim(); // Чому якщо прибрати змінну search з функції і залишити в глобальному, то з другого кліка вже не знаходить значення інпута, а бачить порожній інпут???
+    // search = input.value.trim(); // Чому якщо прибрати змінну search з функції і залишити в глобальному, то з другого кліка вже не знаходить значення інпута, а бачить порожній інпут???
 
-    const morePhotos = await getPhotos(search, page, limit);
-    list.insertAdjacentHTML(
-      'beforeend',
-      createGallaryMarkup(morePhotos.data.hits)
-    );
+    const { data } = await getPhotos(search, page, limit);
+    if (page === Math.ceil(data.totalHits / 15)) {
+      btn.classList.add('is-hidden');
+      loader.classList.add('is-hidden');
+      return iziToast.error({
+        position: 'topRight',
+        message: "We're sorry, but you've reached the end of search results.",
+      });
+    }
+    list.insertAdjacentHTML('beforeend', createGallaryMarkup(data.hits));
     btn.classList.remove('is-hidden');
     loader.classList.add('is-hidden');
   } catch (error) {
@@ -51,7 +48,8 @@ async function morePosts() {
 
 async function onClickBtn(event) {
   event.preventDefault();
-  const search = input.value.trim();
+  page = 1;
+  search = input.value.trim();
 
   if (!search) {
     list.innerHTML = '';
