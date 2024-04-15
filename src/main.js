@@ -49,7 +49,7 @@ async function onClickBtn(event) {
     loader.classList.remove('is-hidden');
     btn.classList.add('is-hidden');
     const lists = await getPhotos(search, 1);
-    console.log(lists);
+
     if (lists.data.hits.length === 0) {
       list.innerHTML = '';
       loader.classList.add('is-hidden');
@@ -85,6 +85,8 @@ async function onClickBtn(event) {
     imageModal.refresh();
   } catch (error) {
     console.log(error);
+    btn.classList.add('is-hidden');
+    loader.classList.add('is-hidden');
   }
 }
 
@@ -93,15 +95,11 @@ async function morePosts() {
   btn.classList.add('is-hidden');
   loader.classList.remove('is-hidden');
   try {
-    // search = input.value.trim(); // Чому якщо прибрати змінну search з функції і залишити в глобальному, то з другого кліка вже не знаходить значення інпута, а бачить порожній інпут???
-
     const { data } = await getPhotos(search, page, limit);
     const lastPage = Math.ceil(data.total / limit);
     if (page === lastPage) {
       btn.classList.add('is-hidden');
       loader.classList.add('is-hidden');
-      console.log(page);
-      console.log(lastPage);
       list.insertAdjacentHTML('beforeend', createGallaryMarkup(data.hits));
       iziToast.warning({
         position: 'topRight',
@@ -134,5 +132,7 @@ async function morePosts() {
     loader.classList.add('is-hidden');
   } catch (error) {
     console.log(error);
+    btn.classList.add('is-hidden');
+    loader.classList.add('is-hidden');
   }
 }
