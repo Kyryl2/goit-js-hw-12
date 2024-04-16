@@ -28,14 +28,15 @@ form.addEventListener('submit', onClickBtn);
 
 async function onClickBtn(event) {
   event.preventDefault();
+
   page = 1;
   search = input.value.trim();
+  form.reset();
 
   if (!search) {
     list.innerHTML = '';
     loader.classList.add('is-hidden');
     btn.classList.add('is-hidden');
-    event.target.reset();
 
     return iziToast.error({
       position: 'topRight',
@@ -54,7 +55,6 @@ async function onClickBtn(event) {
       list.innerHTML = '';
       loader.classList.add('is-hidden');
       btn.classList.add('is-hidden');
-      form.reset();
 
       return iziToast.error({
         position: 'topRight',
