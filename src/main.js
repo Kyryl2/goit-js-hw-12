@@ -96,7 +96,8 @@ async function morePosts() {
   loader.classList.remove('is-hidden');
   try {
     const { data } = await getPhotos(search, page, limit);
-    const lastPage = Math.ceil(data.total / limit);
+    const lastPage = Math.ceil(data.totalHits / limit);
+    console.log(data);
     if (page === lastPage) {
       btn.classList.add('is-hidden');
       loader.classList.add('is-hidden');
