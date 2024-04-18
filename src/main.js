@@ -68,6 +68,7 @@ async function onClickBtn(event) {
         'beforeend',
         createGallaryMarkup(lists.data.hits)
       );
+      imageModal.refresh();
       btn.classList.add('is-hidden');
       loader.classList.add('is-hidden');
       btn.removeEventListener('click', onClickBtn);
